@@ -1,0 +1,71 @@
+body {
+  background: linear-gradient(to bottom right, #0b570d, #9aea4e); 
+  background-size: cover; 
+  background-attachment: fixed;
+}
+
+.App {
+  font-family: "Poppins", sans-serif;
+  margin-top: 50px;
+}
+
+h1 {
+  text-align: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+label, h1 {
+  color: white;
+}
+
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0;
+}
+
+label {
+  margin-bottom: 5px;
+}
+
+input {
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  color: rgb(3, 73, 30);
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Adiciona sombra */
+}
+
+.downloadButton {
+  background-color: red;
+  color: white;
+}
+
+.createButton {
+  background-color: #9aea4e;
+}
+
+
+.downloadButton:hover {
+  background-color: rgb(201, 8, 8);
+}
+
+.createButton:hover {
+  background-color: #80cc39;
+}
+
+
