@@ -12,6 +12,7 @@ function App() {
   });
 
   const [downloadLink, setDownloadLink] = useState('');
+  const [loading, setLoading] = useState(false);
 
   console.log(downloadLink)
 
@@ -31,26 +32,28 @@ function App() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true); // Ativa o estado de loading
   
     try {
-      const response = await api.post('/create_signature', formData, {
-        headers: {
-          'Content-Type': 'application/json'
+        const response = await api.post('/create_signature', formData, {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+    
+        if (response.status === 200) {
+          const fileLink = response.data.image_url;
+          setDownloadLink(fileLink);
+        } else {
+          alert(`${response.data.message}`);
         }
-      });
-  
-      if (response.status === 200) {
-        const fileLink = response.data.image_url;
-        console.log(fileLink)
-        setDownloadLink(fileLink);
-      } else {
-        alert(`${response.data.message}`);
-      }
-    } catch (error) {
-      console.error('Error:', error);
-      alert('Erro ao criar a assinatura. Por favor, tente novamente mais tarde.');
-    }
-  };
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Erro ao criar a assinatura. Por favor, tente novamente mais tarde.');
+      } finally {
+        setLoading(false);
+    };
+  }
 
   return (
     <div className="App">
@@ -92,7 +95,9 @@ function App() {
           <input type="text" name="state" value={formData.state} onChange={handleChange} placeholder='Ex: Goiás' required />
         </div>
 
-        <button type="submit" className="createButton">Criar assinatura</button>
+        <button type="submit" className="createButton" disabled={loading}>
+          {loading ? 'Aguarde...' : 'Criar assinatura'}
+        </button>
 
         {downloadLink && (
           <button type="button" onClick={handleDownload} className="downloadButton">
