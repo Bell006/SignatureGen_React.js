@@ -14,8 +14,6 @@ function App() {
   const [downloadLink, setDownloadLink] = useState('');
   const [loading, setLoading] = useState(false);
 
-  console.log(downloadLink)
-
   const handleDownload = () => {
     if (downloadLink) {
       window.open(downloadLink, '_blank'); 
@@ -35,24 +33,27 @@ function App() {
     setLoading(true); // Ativa o estado de loading
   
     try {
-        const response = await api.post('/create_signature', formData, {
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        });
-    
-        if (response.status === 200) {
-          const fileLink = response.data.image_url;
-          setDownloadLink(fileLink);
-        } else {
-          alert(`${response.data.message}`);
+      const response = await api.post('/create_signature', formData, {
+        headers: {
+          'Content-Type': 'application/json'
         }
-      } catch (error) {
-        console.error('Error:', error);
+      });
+
+      if (response.status === 200) {
+        const fileLink = response.data.image_url;
+        setDownloadLink(fileLink);
+      } else {
+        alert(`${response.data.message}`);
+      }
+    } catch (error) {
+      if (error.response && error.response.data && error.response.data.message) {
+        alert(error.response.data.message);
+      } else {
         alert('Erro ao criar a assinatura. Por favor, tente novamente mais tarde.');
-      } finally {
-        setLoading(false);
-    };
+      }
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
