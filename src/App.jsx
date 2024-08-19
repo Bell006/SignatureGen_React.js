@@ -8,11 +8,16 @@ function App() {
     phone: '',
     department: '',
     city: '',
-    state: ''
+    state: '',
+    regional: ''
   });
 
   const [downloadLink, setDownloadLink] = useState('');
   const [loading, setLoading] = useState(false);
+  const [isState, setIsState] = useState(true);
+
+  const states = ['Acre', 'Alagoas', 'Bahia', 'Ceará', 'Goiás', 'Mato Grosso', 'Minas Gerais', 'Pará', 'Rio de Janeiro', 'São Paulo', 'Tocantins'];
+  const regionals = ['Norte', 'Nordeste', 'Sul', 'Sudeste', 'Centro-Oeste'];
 
   const handleDownload = () => {
     if (downloadLink) {
@@ -25,6 +30,15 @@ function App() {
     setFormData({
       ...formData,
       [name]: value
+    });
+  };
+
+  const handleCheckboxChange = () => {
+    setIsState(!isState);
+    setFormData({
+      ...formData,
+      state: '',
+      regional: ''
     });
   };
 
@@ -83,18 +97,63 @@ function App() {
         </div>
 
         <div className="inputWrapper">
-          <label>
-            Cidade:
-          </label>
-          <input type="text" name="city" value={formData.city} onChange={handleChange} placeholder='Ex: Goiânia' required />
+
+          <div className="checkWrapper">
+            <label>
+              Selecione para alternar entre estado e regional:
+            </label>
+            <input 
+              type='checkbox'
+              checked={isState}
+              onChange={handleCheckboxChange}
+            />
+          </div>
+          
+          <label>{isState ? 'Estado' : 'Regional'}</label>
+
+          {isState ? (
+            <select 
+              name="state" 
+              value={formData.state} 
+              onChange={handleChange} 
+              required
+            >
+              <option value="" disabled>Selecione o estado</option>
+              {states.map((state) => (
+                <option key={state} value={state}>{state}</option>
+              ))}
+            </select>
+          ) : (
+            <select 
+              name="regional" 
+              value={formData.regional} 
+              onChange={handleChange} 
+              required
+            >
+              <option value="" disabled>Selecione a regional</option>
+              {regionals.map((regional) => (
+                <option key={regional} value={regional}>{regional}</option>
+              ))}
+            </select>
+          )}
         </div>
 
-        <div className="inputWrapper">
-          <label>
-            Estado:
-          </label>
-          <input type="text" name="state" value={formData.state} onChange={handleChange} placeholder='Ex: Goiás' required />
-        </div>
+        {isState && (
+          <div className="inputWrapper">
+            <label>
+              Cidade:
+            </label>
+            <input 
+              type="text" 
+              name="city" 
+              value={formData.city} 
+              onChange={handleChange} 
+              placeholder='Ex: Goiânia' 
+              required 
+            />
+          </div>
+        )}
+
 
         <button type="submit" className="createButton" disabled={loading}>
           {loading ? 'Aguarde...' : 'Criar assinatura'}
