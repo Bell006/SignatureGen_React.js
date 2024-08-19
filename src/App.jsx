@@ -27,10 +27,10 @@ function App() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
+    setFormData(prevState => ({
+      ...prevState,
       [name]: value
-    });
+    }));
   };
 
   const handleCheckboxChange = () => {
@@ -47,6 +47,8 @@ function App() {
     setLoading(true); // Ativa o estado de loading
   
     try {
+      setDownloadLink('');
+      
       const response = await api.post('/create_signature', formData, {
         headers: {
           'Content-Type': 'application/json'
@@ -69,6 +71,8 @@ function App() {
       setLoading(false);
     }
   }
+
+
 
   return (
     <div className="App">
