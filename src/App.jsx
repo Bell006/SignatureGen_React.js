@@ -15,9 +15,11 @@ function App() {
   const [downloadLink, setDownloadLink] = useState('');
   const [loading, setLoading] = useState(false);
   const [isState, setIsState] = useState(true);
+  const [suggestions, setSuggestions] = useState([]);
 
-  const states = ['Acre', 'Alagoas', 'Bahia', 'Ceará', 'Goiás', 'Mato Grosso', 'Minas Gerais', 'Pará', 'Rio de Janeiro', 'São Paulo', 'Tocantins'];
+  const states = ['Acre', 'Alagoas', 'Bahia', 'Ceará', 'Goiás', 'Mato Grosso', 'Minas Gerais', 'Pará', 'Rio de Janeiro', 'São Paulo', 'Tocantins', 'Amapá'];
   const regionals = ['Norte', 'Nordeste', 'Sul', 'Sudeste', 'Centro-Oeste'];
+  const departments = ['Administrativo', 'Obras', 'Marketing', 'Projetos', 'Gente e Gestão', 'Suprimentos', 'Contabilidade', 'T.I', 'Auditoria', 'Jurídico', 'Financeiro', 'SAC', 'Controladoria', 'Comercial', 'Ambiental', 'Projetos e Obras Corporativas', 'Manutenção', 'Assessoria'];
 
   const handleDownload = () => {
     if (downloadLink) {
@@ -31,6 +33,23 @@ function App() {
       ...prevState,
       [name]: value
     }));
+
+    if (name === 'department') {
+      const filteredSuggestions = departments.filter(department =>
+        department.toLowerCase().includes(value.toLowerCase())
+      );
+      setSuggestions(filteredSuggestions.length > 0 ? filteredSuggestions : ['não encontrado']);
+    }
+  };
+
+  const handleSuggestionClick = (suggestion) => {
+    if (suggestion !== 'Não encontrado') {
+      setFormData(prevState => ({
+        ...prevState,
+        department: suggestion
+      }));
+    }
+    setSuggestions([]);
   };
 
   const handleCheckboxChange = () => {
@@ -97,7 +116,17 @@ function App() {
           <label>
             Departamento:
           </label>
-          <input type="text" name="department" value={formData.department} onChange={handleChange} placeholder='Ex: Administrativo' required />
+          <select 
+              name="department" 
+              value={formData.department} 
+              onChange={handleChange} 
+              required
+            >
+              <option value="" disabled>Selecione o departamento</option>
+              {departments.sort().map((department) => (
+                <option key={department} value={department}>{department}</option>
+              ))}
+            </select>
         </div>
 
         <div className="inputWrapper">
@@ -123,7 +152,7 @@ function App() {
               required
             >
               <option value="" disabled>Selecione o estado</option>
-              {states.map((state) => (
+              {states.sort().map((state) => (
                 <option key={state} value={state}>{state}</option>
               ))}
             </select>
