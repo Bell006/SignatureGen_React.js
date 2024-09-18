@@ -15,7 +15,6 @@ function App() {
   const [downloadLink, setDownloadLink] = useState('');
   const [loading, setLoading] = useState(false);
   const [isState, setIsState] = useState(true);
-  const [suggestions, setSuggestions] = useState([]);
 
   const states = ['Acre', 'Alagoas', 'Bahia', 'Ceará', 'Goiás', 'Mato Grosso', 'Minas Gerais', 'Pará', 'Rio de Janeiro', 'São Paulo', 'Tocantins', 'Amapá'];
   const regionals = ['Norte', 'Nordeste', 'Sul', 'Sudeste', 'Centro-Oeste'];
@@ -33,23 +32,6 @@ function App() {
       ...prevState,
       [name]: value
     }));
-
-    if (name === 'department') {
-      const filteredSuggestions = departments.filter(department =>
-        department.toLowerCase().includes(value.toLowerCase())
-      );
-      setSuggestions(filteredSuggestions.length > 0 ? filteredSuggestions : ['não encontrado']);
-    }
-  };
-
-  const handleSuggestionClick = (suggestion) => {
-    if (suggestion !== 'Não encontrado') {
-      setFormData(prevState => ({
-        ...prevState,
-        department: suggestion
-      }));
-    }
-    setSuggestions([]);
   };
 
   const handleCheckboxChange = () => {
@@ -81,8 +63,11 @@ function App() {
         alert(`${response.data.message}`);
       }
     } catch (error) {
+      console.log('Error details:', error);
       if (error.response && error.response.data && error.response.data.message) {
         alert(error.response.data.message);
+      } else if (error.request) {
+        alert('A requisição foi feita, mas não houve resposta. Verifique a configuração do servidor.');
       } else {
         alert('Erro ao criar a assinatura. Por favor, tente novamente mais tarde.');
       }
@@ -90,8 +75,6 @@ function App() {
       setLoading(false);
     }
   }
-
-
 
   return (
     <div className="App">
