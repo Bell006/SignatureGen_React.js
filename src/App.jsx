@@ -18,7 +18,7 @@ function App() {
 
   const states = ['Acre', 'Alagoas', 'Bahia', 'Ceará', 'Goiás', 'Mato Grosso', 'Minas Gerais', 'Pará', 'Rio de Janeiro', 'São Paulo', 'Tocantins', 'Amapá'];
   const regionals = ['Norte', 'Nordeste', 'Sul', 'Sudeste', 'Centro-Oeste'];
-  const departments = ['Administrativo', 'Obras', 'Marketing', 'Projetos', 'Gente e Gestão', 'Suprimentos', 'Contabilidade', 'T.I', 'Auditoria', 'Jurídico', 'Financeiro', 'SAC', 'Controladoria', 'Comercial', 'Ambiental', 'Projetos e Obras Corporativas', 'Manutenção', 'Assessoria'];
+  const departments = ['Administrativo', 'Obras', 'Marketing', 'Projetos', 'Gente e Gestão', 'Suprimentos', 'Contabilidade', 'T.I', 'Auditoria', 'Jurídico', 'Financeiro', 'SAC', 'Controladoria', 'Comercial', 'Ambiental', 'Projetos e Obras Corporativas', 'Manutenção', 'Assessoria', 'Gerente de Unidade'];
 
   const handleDownload = () => {
     if (downloadLink) {
