@@ -27,6 +27,15 @@ form {
   max-width: 187px;
 }
 
+.phoneWrapper {
+  display: flex;
+  gap: 4px;
+}
+
+.phoneWrapper button{
+  margin-top: 0;
+}
+
 .checkWrapper {
   margin: 10px 0;
 }
@@ -77,6 +86,10 @@ button {
 
 .createButton:hover {
   background-color: #80cc39;
+}
+
+.phoneWrapper button:hover{
+  background-color: #e6e6e6;
 }
 
 

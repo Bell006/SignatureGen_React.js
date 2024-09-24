@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import InputMask from "react-input-mask";
 import './App.css';
 import { api } from './services/api';
 
 function App() {
   const [formData, setFormData] = useState({
+    email: '',
     name: '',
     phone: '',
     department: '',
@@ -15,10 +17,24 @@ function App() {
   const [downloadLink, setDownloadLink] = useState('');
   const [loading, setLoading] = useState(false);
   const [isState, setIsState] = useState(true);
+  const [isMobile, setIsMobile] = useState(true);
 
   const states = ['Acre', 'Alagoas', 'Bahia', 'Ceará', 'Goiás', 'Mato Grosso', 'Minas Gerais', 'Pará', 'Rio de Janeiro', 'São Paulo', 'Tocantins', 'Amapá'];
   const regionals = ['Norte', 'Nordeste', 'Sul', 'Sudeste', 'Centro-Oeste'];
   const departments = ['Administrativo', 'Obras', 'Marketing', 'Projetos', 'Gente e Gestão', 'Suprimentos', 'Contabilidade', 'T.I', 'Auditoria', 'Jurídico', 'Financeiro', 'SAC', 'Controladoria', 'Comercial', 'Ambiental', 'Projetos e Obras Corporativas', 'Manutenção', 'Assessoria', 'Gerente de Unidade'];
+
+  let digit = /[0-9]/;
+  let mobileMask = ['(', digit, digit, ')', ' ', '9', ' ', digit, digit, digit, digit, '-', digit, digit, digit, digit];
+
+  const handleNumberBtn = (e) => {
+    e.preventDefault();
+    setIsMobile(!isMobile);
+
+    setFormData(prevState => ({
+      ...prevState,
+      phone: ''
+    }));
+  }
 
   const handleDownload = () => {
     if (downloadLink) {
@@ -45,7 +61,7 @@ function App() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true); // Ativa o estado de loading
+    setLoading(true); 
   
     try {
       setDownloadLink('');
@@ -83,6 +99,13 @@ function App() {
 
         <div className="inputWrapper">
           <label>
+            Email:
+          </label>
+          <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder='usuário@buritiempreendimentos.com.br' required />
+        </div>
+
+        <div className="inputWrapper">
+          <label>
             Nome e sobrenome:
           </label>
           <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder='Ex: Maria da Silva' required />
@@ -90,9 +113,12 @@ function App() {
 
         <div className="inputWrapper">
           <label>
-            Celular com DDD:
+            {isMobile ? 'Celular com DDD:' : 'Telefone fixo com DDD:'}
           </label>
-          <input type="text" name="phone" value={formData.phone} onChange={handleChange} placeholder='xx x xxxx-xxxx' required />
+          <div className="phoneWrapper">
+            <InputMask type='text' name='phone' value={formData.phone} onChange={handleChange} mask={isMobile ? mobileMask : '(99) 9999-9999'} required/>
+            <button onClick={handleNumberBtn}>{isMobile ? 'Fixo' : 'Celular'}</button>
+          </div>
         </div>
 
         <div className="inputWrapper">
@@ -105,7 +131,7 @@ function App() {
               onChange={handleChange} 
               required
             >
-              <option value="" disabled>Selecione o departamento</option>
+              <option value="" disabled>Departamento</option>
               {departments.sort().map((department) => (
                 <option key={department} value={department}>{department}</option>
               ))}
@@ -169,7 +195,6 @@ function App() {
             />
           </div>
         )}
-
 
         <button type="submit" className="createButton" disabled={loading}>
           {loading ? 'Aguarde...' : 'Criar assinatura'}
