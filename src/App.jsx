@@ -19,7 +19,7 @@ function App() {
   const [isState, setIsState] = useState(true);
   const [isMobile, setIsMobile] = useState(true);
 
-  const states = ['Acre', 'Alagoas', 'Bahia', 'Ceará', 'Goiás', 'Mato Grosso', 'Minas Gerais', 'Pará', 'Rio de Janeiro', 'São Paulo', 'Tocantins', 'Amapá'];
+  const states = ['Acre', 'Alagoas', 'Bahia', 'Ceará', 'Goiás', 'Mato Grosso', 'Minas Gerais', 'Pará', 'Rio de Janeiro', 'São Paulo', 'Tocantins', 'Amapá', 'Rio Grande do Sul', 'Roraima', 'Rondônia', 'Espírito Santo'];
   const regionals = ['Norte', 'Nordeste', 'Sul', 'Sudeste', 'Centro-Oeste'];
   const departments = ['Administrativo', 'Obras', 'Marketing', 'Projetos', 'Gente e Gestão', 'Suprimentos', 'Contabilidade', 'T.I', 'Auditoria', 'Jurídico', 'Financeiro', 'SAC', 'Controladoria', 'Comercial', 'Ambiental', 'Projetos e Obras Corporativas', 'Manutenção', 'Assessoria', 'Gerente de Unidade'];
 
