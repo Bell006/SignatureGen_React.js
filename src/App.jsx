@@ -21,7 +21,7 @@ function App() {
 
   const states = ['Acre', 'Alagoas', 'Bahia', 'Ceará', 'Goiás', 'Mato Grosso', 'Maranhão', 'Minas Gerais', 'Pará', 'Rio de Janeiro', 'São Paulo', 'Tocantins', 'Amapá', 'Rio Grande do Sul', 'Roraima', 'Rondônia', 'Espírito Santo'];
   const regionals = ['Norte', 'Nordeste', 'Sul', 'Sudeste', 'Centro-Oeste'];
-  const departments = ['Administrativo', 'Obras', 'Engenharia', 'Marketing', 'Projetos', 'Gente e Gestão', 'Suprimentos', 'Contabilidade', 'T.I', 'Auditoria', 'Jurídico', 'Financeiro', 'SAC', 'Controladoria', 'Comercial', 'Ambiental', 'Projetos e Obras Corporativas', 'Manutenção', 'Assessoria', 'Gerente de Unidade'];
+  const departments = ['Administrativo', 'Ambiental', 'Assessoria', 'Auditoria', 'Comercial', 'Contabilidade', 'Controladoria', 'Engenharia', 'Financeiro', 'Gente e Gestão', 'Gerente de Unidade', 'Jurídico', 'Manutenção', 'Marketing', 'Obras', 'Projetos', 'Projetos e Obras Corporativas', 'Recepção', 'SAC', 'Suprimentos', 'T.I'];
 
   let digit = /[0-9]/;
   let mobileMask = ['(', digit, digit, ')', ' ', '9', ' ', digit, digit, digit, digit, '-', digit, digit, digit, digit];
